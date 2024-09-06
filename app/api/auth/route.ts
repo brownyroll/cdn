@@ -12,9 +12,9 @@ export async function POST(request: Request) {
   const { type, username, password, fullname } = await request.json();
 
   if (type === 'register') {
-    // Handle registration
-    const hashedPassword = await bcrypt.hash(password, 10);
     try {
+      // Handle registration
+      const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = await Prisma.user.create({
         data: {
           username,
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 
       // สร้าง JWT token
       const token = jwt.sign({ id: newUser.id, username: newUser.username }, JWT_SECRET, {
-        expiresIn: '1h', // กำหนดอายุของ token
+        expiresIn: '12h', // fix day token
       });
 
       const response = NextResponse.json({ success: true, user: newUser });
@@ -33,27 +33,34 @@ export async function POST(request: Request) {
       return response;
 
     } catch (error) {
-      console.error(error);
-      return NextResponse.json({ success: false, message: 'Username already exists.' });
+      console.error('Registration error:', error);
+      return NextResponse.json({ success: false, message: 'Username already exists.', error: error.message });
     }
   } else if (type === 'login') {
-    // Handle login
-    const user = await Prisma.user.findUnique({
-      where: { username },
-    });
+    try {
+      // Handle login
+      const user = await Prisma.user.findUnique({
+        where: { username },
+      });
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return NextResponse.json({ success: false, message: 'Invalid username or password.' });
+      if (!user || !(await bcrypt.compare(password, user.password))) {
+        return NextResponse.json({ success: false, message: 'Invalid username or password.' });
+      }
+
+      // JWT token
+      const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, {
+        expiresIn: '12h', 
+      });
+
+      const response = NextResponse.json({ success: true, user });
+      response.cookies.set('Brownyrollz-token', token, { httpOnly: true });
+      response.cookies.set('Brownyrollz-Username', username , { httpOnly: true });
+      return response;
+
+    } catch (error) {
+      console.error('Login error:', error);
+      return NextResponse.json({ success: false, message: 'Login failed.', error : error.message });
     }
-
-    // สร้าง JWT token
-    const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, {
-      expiresIn: '1h', 
-    });
-
-    const response = NextResponse.json({ success: true, user });
-    response.cookies.set('token', token, { httpOnly: true });
-    return response;
   }
 
   return NextResponse.json({ success: false, message: 'Invalid request type.' });

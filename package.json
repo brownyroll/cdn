@@ -1,6 +1,6 @@
 {
-	"name": "next-app-template",
-	"version": "0.0.1",
+	"name": "brownyrollz-cdn",
+	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"dev": "next dev --turbo",
@@ -10,19 +10,25 @@
 	},
 	"dependencies": {
 		"@nextui-org/button": "2.0.37",
+		"@nextui-org/card": "^2.0.33",
 		"@nextui-org/code": "2.0.32",
 		"@nextui-org/input": "2.2.4",
 		"@nextui-org/kbd": "2.0.33",
 		"@nextui-org/link": "2.0.34",
 		"@nextui-org/listbox": "2.1.25",
 		"@nextui-org/navbar": "2.0.36",
+		"@nextui-org/popover": "^2.1.27",
+		"@nextui-org/react": "^2.4.6",
 		"@nextui-org/snippet": "2.0.41",
 		"@nextui-org/switch": "2.0.33",
 		"@nextui-org/system": "2.2.5",
+		"@nextui-org/table": "^2.0.39",
 		"@nextui-org/theme": "2.2.9",
-		"@prisma/client": "^5.18.0",
+		"@prisma/client": "^5.19.1",
 		"@react-aria/ssr": "3.9.4",
 		"@react-aria/visually-hidden": "3.8.12",
+		"@types/bcrypt": "^5.0.2",
+		"axios": "^1.7.7",
 		"bcrypt": "^5.1.1",
 		"clsx": "2.1.1",
 		"framer-motion": "~11.1.1",
@@ -32,7 +38,10 @@
 		"next-auth": "^4.24.7",
 		"next-themes": "^0.2.1",
 		"react": "18.3.1",
-		"react-dom": "18.3.1"
+		"react-dom": "18.3.1",
+		"react-dropzone": "^14.2.3",
+		"react-icons": "^5.3.0",
+		"sweetalert2": "^11.13.2"
 	},
 	"devDependencies": {
 		"@types/node": "20.5.7",

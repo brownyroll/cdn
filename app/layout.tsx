@@ -44,15 +44,15 @@ export default function RootLayout({
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <div className="relative flex flex-col h-screen">
             <Navbar />
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+            <main className="container mx-auto max-w-7xl flex-grow">
               {children}
             </main>
             <footer className="w-full flex items-center justify-center py-3">
               <Link
                 isExternal
                 className="flex items-center gap-1 text-current"
-                href="https://brownyrollz.in.th"
-                title="brownyrollz homepage"
+                href="https://cdn.brownyrollz.in.th"
+                title="Brownyrollz CDN - Home page"
               >
                 <span className="text-default-600">Powered by</span>
                 <p className="text-primary">Brownyrollz Studio</p>
